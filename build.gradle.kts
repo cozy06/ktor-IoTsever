@@ -19,6 +19,7 @@ application {
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -31,4 +32,14 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    implementation("org.json:json:20230227")
+
+    implementation("com.pi4j:pi4j-core:1.2")
+    implementation("com.github.cozy06:conveniency:34e2ea4118")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("HomeIoT.jar")
+    }
 }

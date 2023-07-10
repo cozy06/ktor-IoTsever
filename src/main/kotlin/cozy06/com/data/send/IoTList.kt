@@ -1,4 +1,4 @@
-package com.cozy06.data
+package cozy06.com.data.send
 
 import kotlinx.serialization.Serializable
 
