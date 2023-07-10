@@ -39,11 +39,11 @@ class Act {
     }
 
     fun Power_ONOFF(name: String, power: String): Any {
-        val result: String = Python().connect("ad", "${name}_${power}").split("\n").last()
+        val result: String = Python().connect("00:18:91:D7:9C:A2", "${name}_${power}")
+        val ok = result.substring(result.length-3, result.length)
 
-        return when(result) {
+        return when(ok) {
             "END" -> true
-            "error" -> false
             else -> false
         }
     }
