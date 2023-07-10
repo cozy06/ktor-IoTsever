@@ -1,5 +1,5 @@
 import sys
-# from bluetooth import *
+from bluetooth import *
 
 # 데이터 수집 및 처리 함수 예시
 def toUpper(data):
@@ -13,16 +13,14 @@ read = sys.argv[1:]
 address = read[0]
 data = read[1]
 
-print(f"Send {data} to {address}")
+try:
+    socket = BluetoothSocket(RFCOMM)
+    socket.connect((address, 1))
+    print("bluetooth connected!")
+    print(f"Send {data} to {address}")
+    socket.send(data)
 
-# try:
-#     socket = BluetoothSocket(RFCOMM)
-#     socket.connect((address, 1))
-#     print("bluetooth connected!")
-#     print(f"Send {data} to {address}")
-#     socket.send(data)
-#
-#     print("END")
-#     socket.close()
-# except:
-#     print("error")
+    print("END")
+    socket.close()
+except:
+    print("error")
