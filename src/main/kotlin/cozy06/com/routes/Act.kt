@@ -39,12 +39,24 @@ class Act {
     }
 
     fun Power_ONOFF(name: String, power: String): Any {
-        val result: String = Python().connect("00:18:91:D7:9C:A2", "${name}_${power}")
-        val ok = result.substring(result.length-3, result.length)
+        val path = "$project_path/IoT_List/${name}.json"
 
-        return when(ok) {
-            "END" -> true
-            else -> false
+        val jsonString = File(path).readFile()
+        val address = jsonString.toJson().getString("port")
+        val type = jsonString.toJson().getString("type")
+
+        when(type) {
+            "python" -> {
+                val result: String = Python().connect(address, "${name}_${power}")
+                val ok = result.substring(result.length-3, result.length)
+
+                return when(ok) {
+                    "END" -> true
+                    else -> false
+                }
+            }
+            "wifi" -> {return false}
+            else -> return false
         }
     }
 
